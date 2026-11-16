@@ -1,35 +1,54 @@
 services:
   db:
     image: redis:8-alpine
-    container_name: db_redis
     networks:
-      - lab1-net
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   app:
     build: .
-    image: lab1-app:1.0
-    container_name: app
-    depends_on:
-      - db
+    image: lab1-app:1.1
+    environment:
+      REDIS_HOST: db
     networks:
-      - lab1-net
+      - frontend
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
 
   proxy:
     image: nginx:1.30-alpine
-    container_name: proxy
     ports:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - app
     networks:
-      - lab1-net
+      - frontend
+    depends_on:
+      app:
+        condition: service_healthy
 
 networks:
-  lab1-net:
-    driver: bridge
+  frontend:
     ipam:
       config:
-        - subnet: 172.28.0.0/24
-          gateway: 172.28.0.1
+        - subnet: 172.29.0.0/24
+  backend:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

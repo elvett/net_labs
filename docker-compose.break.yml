@@ -1,0 +1,4 @@
+services:
+  db:
+    healthcheck:
+      test: ["CMD", "false"]

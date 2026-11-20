@@ -1,0 +1,10 @@
+check,subject,result,details
+network_table,net_labs_backend,INFO,"app(172.30.0.3), db(172.30.0.2)"
+network_table,net_labs_frontend,INFO,"app(172.29.0.2), proxy(172.29.0.3)"
+port_publishing,net_labs,PASS,meets the requirements
+http_request_1,http://192.168.122.169:8080/,200,time=0.002s counter=12
+http_request_2,http://192.168.122.169:8080/,200,time=0.001s counter=13
+proxy_app_db_chain,12 -> 13,PASS,the visit counter must increase
+cli_vs_api,proxy 3a90043d275c,PASS,match
+cli_vs_api,db 57de469b0cd8,PASS,match
+cli_vs_api,app f8001e9f33fe,PASS,match

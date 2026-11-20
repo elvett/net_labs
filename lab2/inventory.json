@@ -1,0 +1,92 @@
+{
+  "cli": {
+    "host": "ubuntus",
+    "project": "net_labs",
+    "collected_at": "2026-11-20T08:05:52+00:00",
+    "source": "cli",
+    "containers": [
+      {
+        "service": "app",
+        "id": "f8001e9f33fe63efb4727588d4f0038b150dcc7d19b76ca33e49923a44685745",
+        "image": "lab1-app:1.1",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:39.174028Z",
+        "networks": {
+          "net_labs_backend": "172.30.0.3",
+          "net_labs_frontend": "172.29.0.2"
+        },
+        "ports": []
+      },
+      {
+        "service": "db",
+        "id": "57de469b0cd8c72e5dfe2ea42ec816cb340d06c65a56f67ed92e85ce99ecabb4",
+        "image": "redis:8-alpine",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:33.369191Z",
+        "networks": {
+          "net_labs_backend": "172.30.0.2"
+        },
+        "ports": []
+      },
+      {
+        "service": "proxy",
+        "id": "3a90043d275ccfe66b67dd2e46cf238e008f1fe4cad6c962ae92cc92c9cfa838",
+        "image": "nginx:1.30-alpine",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:44.524957Z",
+        "networks": {
+          "net_labs_frontend": "172.29.0.3"
+        },
+        "ports": [
+          "0.0.0.0:8080->80/tcp",
+          ":::8080->80/tcp"
+        ]
+      }
+    ]
+  },
+  "api": {
+    "host": "ubuntus",
+    "project": "net_labs",
+    "collected_at": "2026-11-20T08:05:52+00:00",
+    "source": "api",
+    "containers": [
+      {
+        "service": "app",
+        "id": "f8001e9f33fe63efb4727588d4f0038b150dcc7d19b76ca33e49923a44685745",
+        "image": "lab1-app:1.1",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:39.174028Z",
+        "networks": {
+          "net_labs_backend": "172.30.0.3",
+          "net_labs_frontend": "172.29.0.2"
+        },
+        "ports": []
+      },
+      {
+        "service": "db",
+        "id": "57de469b0cd8c72e5dfe2ea42ec816cb340d06c65a56f67ed92e85ce99ecabb4",
+        "image": "redis:8-alpine",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:33.369191Z",
+        "networks": {
+          "net_labs_backend": "172.30.0.2"
+        },
+        "ports": []
+      },
+      {
+        "service": "proxy",
+        "id": "3a90043d275ccfe66b67dd2e46cf238e008f1fe4cad6c962ae92cc92c9cfa838",
+        "image": "nginx:1.30-alpine",
+        "state": "running",
+        "started_at": "2026-11-20T08:05:44.524957Z",
+        "networks": {
+          "net_labs_frontend": "172.29.0.3"
+        },
+        "ports": [
+          "0.0.0.0:8080->80/tcp",
+          ":::8080->80/tcp"
+        ]
+      }
+    ]
+  }
+}
